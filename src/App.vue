@@ -8,6 +8,7 @@
 <script>
 import MyHeader from './components/MyHeader.vue';
 import MyMain from './components/MyMain.vue';
+import axios from 'axios';
 
 export default {
   name: 'App',
@@ -17,12 +18,21 @@ export default {
   },
   data() {
     return {
-      wordsToSearch: ''
+      wordsToSearch: '',
+      myApiKey: '3642ddadc741136c1c6eda46fa6ee412',
+      movieList: []
     }
   },
   methods: {
     getWordsToSearch(words) {
       this.wordsToSearch = words;
+      this.callApi();
+    },
+    callApi() {
+      axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${this.myApiKey}&query=${this.wordsToSearch}`)
+      .then( response => {
+        this.movieList = response.data.results;
+      });
     }
   }
 }
