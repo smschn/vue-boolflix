@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <MyHeader />
+    <MyHeader @searchThis='getWordsToSearch' />
     <MyMain />
   </div>
 </template>
@@ -14,6 +14,16 @@ export default {
   components: {
     MyHeader,
     MyMain
+  },
+  data() {
+    return {
+      wordsToSearch: ''
+    }
+  },
+  methods: {
+    getWordsToSearch(words) {
+      this.wordsToSearch = words;
+    }
   }
 }
 </script>

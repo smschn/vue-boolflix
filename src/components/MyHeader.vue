@@ -2,15 +2,20 @@
     <header>
         <h1>BOOLFLIX</h1>
         <div>
-            <input type="text" placeholder="Digita per cercare un film." />
-            <button>Cerca</button>
+            <input type="text" v-model="whatToSearch" placeholder="Digita per cercare un film." />
+            <button @click="$emit('searchThis', whatToSearch)">Cerca</button>
         </div>
     </header>
 </template>
 
 <script>
 export default {
-    name: 'MyHeader'
+    name: 'MyHeader',
+    data() {
+        return {
+            whatToSearch: ''
+        }
+    }
 }
 </script>
 
