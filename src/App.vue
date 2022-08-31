@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <MyHeader @searchThis='getWordsToSearch' />
-    <MyMain />
+    <MyMain :searchResults='moviesList' />
   </div>
 </template>
 
@@ -20,7 +20,7 @@ export default {
     return {
       wordsToSearch: '',
       myApiKey: '3642ddadc741136c1c6eda46fa6ee412',
-      movieList: []
+      moviesList: []
     }
   },
   methods: {
@@ -31,7 +31,7 @@ export default {
     callApi() {
       axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${this.myApiKey}&query=${this.wordsToSearch}`)
       .then( response => {
-        this.movieList = response.data.results;
+        this.moviesList = response.data.results;
       });
     }
   }
