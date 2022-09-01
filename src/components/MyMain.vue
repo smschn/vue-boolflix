@@ -1,30 +1,39 @@
 <template>
     <main>
-        <h1>Film:</h1>
+        <h1 v-if="moviesSearchResults.length > 0">Film:</h1>
         <div class="container flip-card">
             <div class="card flip-card-inner" v-for="(movie, index) in moviesSearchResults" v-bind:key="index">
                 <div class="flip-card-front">
-                    <div>Poster: <img v-bind:src="posterUrl + movie.poster_path" v-bind:alt="movie.title"></div>
+                    <img v-bind:src="posterUrl + movie.poster_path" v-bind:alt="movie.title">
                 </div>
                 <div class="flip-card-back">
-                    <p>Titolo: {{movie.title}}</p>
-                    <p>Titolo originale: {{movie.original_title}}</p>
-                    <p>Lingua originale: <img class="flag" v-bind:src="changeStringToFlag(movie.original_language)" v-bind:alt="movie.original_language" /></p>
-                    <p>Media voto: {{getIntegerVote(movie.vote_average)}} - <span v-for="(singleVote, index) in getIntegerVote(movie.vote_average)" :key='index'><i class="fa-solid fa-star"></i></span></p>
+                    <h3 class="title">Titolo:</h3>
+                    <p>{{movie.title}}<p>
+                    <h3 class="title">Titolo originale:</h3>
+                    <p>{{movie.original_title}}</p>
+                    <h3 class="title">Lingua originale:</h3>
+                    <img class="flag" v-bind:src="changeStringToFlag(movie.original_language)" v-bind:alt="movie.original_language">
+                    <h3 class="title">Voto:</h3>
+                    <span v-for="(singleVote, index) in getIntegerVote(movie.vote_average)" :key='index'><i class="fa-solid fa-star"></i></span>
                 </div>
             </div>
         </div>
-
-
-
-        <h1>Serie TV:</h1>
-        <div class="container">
-            <div class="card" v-for="(serie, index) in seriesSearchResults" v-bind:key="index">
-                <div>Poster: <img v-bind:src="posterUrl + serie.poster_path" v-bind:alt="serie.name" /></div>
-                <p>Titolo: {{serie.name}}</p>
-                <p>Titolo originale: {{serie.original_name}}</p>
-                <p>Lingua originale: <img class="flag" v-bind:src="changeStringToFlag(serie.original_language)" v-bind:alt="serie.original_language" /></p>
-                <p>Media voto: {{getIntegerVote(serie.vote_average)}} - <span v-for="(singleVote, index) in getIntegerVote(serie.vote_average)" :key='index'><i class="fa-solid fa-star"></i></span></p>
+        <h1 v-if="seriesSearchResults.length > 0">Serie TV:</h1>
+        <div class="container flip-card">
+            <div class="card flip-card-inner" v-for="(serie, index) in seriesSearchResults" v-bind:key="index">
+                <div class="flip-card-front">
+                    <img v-bind:src="posterUrl + serie.poster_path" v-bind:alt="serie.name">
+                </div>
+                <div class="flip-card-back">
+                    <h3 class="title">Titolo:</h3>
+                    <p>{{serie.name}}<p>
+                    <h3 class="title">Titolo originale:</h3>
+                    <p>{{serie.original_name}}</p>
+                    <h3 class="title">Lingua originale:</h3>
+                    <img class="flag" v-bind:src="changeStringToFlag(serie.original_language)" v-bind:alt="serie.original_language">
+                    <h3 class="title">Voto:</h3>
+                    <span v-for="(singleVote, index) in getIntegerVote(serie.vote_average)" :key='index'><i class="fa-solid fa-star"></i></span>
+                </div>
             </div>
         </div>
     </main>
@@ -39,7 +48,7 @@ export default {
     },
     data() {
         return {
-            posterUrl: 'https://image.tmdb.org/t/p/w185' // dopo inserire w342
+            posterUrl: 'https://image.tmdb.org/t/p/w342' // dopo inserire w342
         }
     },
     methods: {
@@ -81,64 +90,67 @@ main {
         justify-content: space-between;
 
         .card {
-            padding: 10px;
-            flex-basis: calc(100% / 5 - 4px);
-            margin-top: 4px;
+            flex-basis: calc(100% / 5);
+            height: 350px;
+            margin: 5px;
             color: #fff;
-            border: 1px solid $bg_c1;
-            background-color: grey; 
 
             .flag {
                 max-width: 20px;
             }
         }
+
         /* This container is needed to position the front and back side */
         .flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
+            position: relative;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            
+            /* Position the front and back side */
+            .flip-card-front, .flip-card-back {
+                position: absolute;
+                -webkit-backface-visibility: hidden; /* Safari */
+                backface-visibility: hidden;
+            }
+                
+            /* Style the front side (fallback if image is missing) */
+            .flip-card-front {
+                color: black;
 
-  /* Position the front and back side */
-.flip-card-front, .flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
-  backface-visibility: hidden;
-}
-/* Style the front side (fallback if image is missing) */
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+            }
 
-.flip-card-front {
-  background-color: #bbb;
-  color: black;
-}
-/* Style the back side */
+            /* Style the back side */
+            .flip-card-back {
+                transform: rotateY(180deg);
+                width: 100%;
+                height: 100%;
 
-.flip-card-back {
-  background-color: dodgerblue;
-  color: white;
-  transform: rotateY(180deg);
-}
-}
+                .title {
+                    margin: 10px;
+                }
+            }
+        }
+        
+        /* Do an horizontal flip when you move the mouse over the flip box container */
+        .flip-card-inner:hover {
+            transform: rotateY(180deg);
+        }
+
+    }
+    
+    /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+    .flip-card {
+        background-color: transparent;
     }
 
-    /* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
-.flip-card {
-  background-color: transparent;
-  width: 300px;
-  height: 200px;
-  border: 1px solid #f1f1f1;
-  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    /* Do an horizontal flip when you move the mouse over the flip box container */
+    .flip-card-inner:hover {
+    transform: rotateY(180deg);
+    }
 }
-
-/* Do an horizontal flip when you move the mouse over the flip box container */
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-}
-
 </style>
