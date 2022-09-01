@@ -12,7 +12,8 @@
                     <h3 class="title">Titolo originale:</h3>
                     <p>{{movie.original_title}}</p>
                     <h3 class="title">Lingua originale:</h3>
-                    <img class="flag" v-bind:src="changeStringToFlag(movie.original_language)" v-bind:alt="movie.original_language">
+                    <img class="flag" v-if="availableFlags.includes(movie.original_language)" v-bind:src="require('../assets/flags/' + movie.original_language + '.png')" v-bind:alt="movie.original_language">
+                    <span v-else>{{movie.original_language}}</span>
                     <h3 class="title">Voto:</h3>
                     <span v-for="(singleVote, index) in getIntegerVote(movie.vote_average)" :key='index'><i class="fa-solid fa-star"></i></span>
                 </div>
@@ -30,7 +31,8 @@
                     <h3 class="title">Titolo originale:</h3>
                     <p>{{serie.original_name}}</p>
                     <h3 class="title">Lingua originale:</h3>
-                    <img class="flag" v-bind:src="changeStringToFlag(serie.original_language)" v-bind:alt="serie.original_language">
+                    <img class="flag" v-if="availableFlags.includes(serie.original_language)" v-bind:src="require('../assets/flags/' + serie.original_language + '.png')" v-bind:alt="serie.original_language">
+                    <span v-else>{{serie.original_language}}</span>
                     <h3 class="title">Voto:</h3>
                     <span v-for="(singleVote, index) in getIntegerVote(serie.vote_average)" :key='index'><i class="fa-solid fa-star"></i></span>
                 </div>
@@ -48,7 +50,8 @@ export default {
     },
     data() {
         return {
-            posterUrl: 'https://image.tmdb.org/t/p/w342' // dopo inserire w342
+            posterUrl: 'https://image.tmdb.org/t/p/w342',
+            availableFlags: ['de', 'en', 'es', 'fr', 'it']
         }
     },
     methods: {
