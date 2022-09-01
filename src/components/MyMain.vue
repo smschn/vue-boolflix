@@ -8,6 +8,7 @@
                 <p>Titolo originale: {{movie.original_title}}</p>
                 <p>Lingua originale: <img class="flag" v-bind:src="changeStringToFlag(movie.original_language)" v-bind:alt="movie.original_language" /></p>
                 <p>Media voto: {{movie.vote_average}}</p>
+                <p>Media voto: {{getIntegerVote(movie.vote_average)}}</p>
             </div>
         </div>
         <h1>Serie TV:</h1>
@@ -18,6 +19,7 @@
                 <p>Titolo originale: {{serie.original_name}}</p>
                 <p>Lingua originale: <img class="flag" v-bind:src="changeStringToFlag(serie.original_language)" v-bind:alt="serie.original_language" /></p>
                 <p>Media voto: {{serie.vote_average}}</p>
+                <p>Media voto: {{getIntegerVote(serie.vote_average)}}</p>
             </div>
         </div>
     </main>
@@ -44,6 +46,10 @@ export default {
                 imgSrc = languageString;
             }
             return imgSrc;
+        },
+        getIntegerVote(vote) {
+            let newVote = Math.round(vote / 2);
+            return newVote;
         }
     }
 }
