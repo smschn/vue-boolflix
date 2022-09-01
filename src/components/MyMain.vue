@@ -4,8 +4,8 @@
             <div class="card" v-for="(result, index) in searchResults" v-bind:key="index">
                 <p>Titolo: {{result.title}}</p>
                 <p>Titolo originale: {{result.original_title}}</p>
-                <p>Lingua: {{result.original_language}}</p>
-                <p>Media voto: {{result.vote_average}}</p> 
+                <p>Lingua originale: <img class="flag" v-bind:src="changeStringToFlag(result.original_language)" v-bind:alt="result.original_language" /></p>
+                <p>Media voto: {{result.vote_average}}</p>
             </div>
         </div>
     </main>
@@ -16,6 +16,17 @@ export default {
     name: 'MyMain',
     props: {
         searchResults: Array
+    },
+    methods: {
+        changeStringToFlag(languageString) {
+            let imgSrc = '';
+            if (languageString == 'de' || languageString == 'en' || languageString == 'es' || languageString == 'fr' || languageString == 'it') {
+                imgSrc = require(`../assets/flags/${languageString}.png`);
+            } else {
+                imgSrc = languageString;
+            }
+            return imgSrc;
+        }
     }
 }
 </script>
@@ -42,6 +53,10 @@ main {
             color: #fff;
             border: 1px solid $bg_c1;
             background-color: grey;
+
+            .flag {
+                max-width: 20px;
+            }
         }
     }
 }
