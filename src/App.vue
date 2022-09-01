@@ -20,6 +20,7 @@ export default {
     return {
       wordsToSearch: '',
       myApiKey: '3642ddadc741136c1c6eda46fa6ee412',
+      language: 'it-IT',
       moviesList: []
     }
   },
@@ -29,10 +30,13 @@ export default {
       this.callApi();
     },
     callApi() {
-      axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${this.myApiKey}&query=${this.wordsToSearch}`)
-      .then( response => {
+      axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${this.myApiKey}&language=${this.language}&query=${this.wordsToSearch}`)
+      .then(response => {
         this.moviesList = response.data.results;
-      });
+      })
+      .catch(error => {
+        console.log(error);
+      })
     }
   }
 }
