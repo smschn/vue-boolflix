@@ -15,7 +15,10 @@
                     <img class="flag" v-if="availableFlags.includes(movie.original_language)" v-bind:src="require('../assets/flags/' + movie.original_language + '.png')" v-bind:alt="movie.original_language">
                     <span v-else>{{movie.original_language}}</span>
                     <h3>Voto:</h3>
-                    <span v-for="(singleVote, index) in getIntegerVote(movie.vote_average)" :key='index'><i class="fa-solid fa-star"></i></span>
+                    <p>{{getIntegerVote(movie.vote_average)}}</p>
+                    <span v-for="(singleVote, index) in 5" :key='index'>
+                        <i class="fa-star " v-bind:class=" (getIntegerVote(movie.vote_average)>=singleVote)?'fa-solid':'fa-regular' "></i>
+                    </span>
                 </div>
             </div>
         </div>
@@ -34,7 +37,10 @@
                     <img class="flag" v-if="availableFlags.includes(serie.original_language)" v-bind:src="require('../assets/flags/' + serie.original_language + '.png')" v-bind:alt="serie.original_language">
                     <span v-else>{{serie.original_language}}</span>
                     <h3>Voto:</h3>
-                    <span v-for="(singleVote, index) in getIntegerVote(serie.vote_average)" :key='index'><i class="fa-solid fa-star"></i></span>
+                    <p>{{getIntegerVote(serie.vote_average)}}</p>
+                    <span v-for="(singleVote, index) in 5" :key='index'>
+                        <i class="fa-star " v-bind:class=" (getIntegerVote(serie.vote_average)>=singleVote)?'fa-solid':'fa-regular' "></i>
+                    </span>
                 </div>
             </div>
         </div>
@@ -56,7 +62,7 @@ export default {
     },
     methods: {
         getIntegerVote(vote) {
-            let newVote = Math.round(vote / 2);
+            let newVote = Math.ceil(vote / 2);
             return newVote;
         }
     }

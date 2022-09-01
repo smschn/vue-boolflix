@@ -29,11 +29,18 @@ export default {
   methods: {
     getWordsToSearch(words) {
       this.wordsToSearch = words;
-      this.callApiMovies();
-      this.callApiSeries();
+      let parametersObject = {
+        params: {
+          api_key: this.myApiKey,
+          language: this.language,
+          query: words
+        }
+      };
+      this.callApiMovies(parametersObject);
+      this.callApiSeries(parametersObject);
     },
-    callApiMovies() {
-      axios.get(`${this.apiUrl}search/movie?api_key=${this.myApiKey}&language=${this.language}&query=${this.wordsToSearch}`)
+    callApiMovies(parameter) {
+      axios.get(this.apiUrl + 'search/movie?', parameter)
       .then(response => {
         this.moviesList = response.data.results;
       })
@@ -41,8 +48,8 @@ export default {
         console.log(error);
       })
     },
-    callApiSeries() {
-      axios.get(`${this.apiUrl}search/tv?api_key=${this.myApiKey}&language=${this.language}&query=${this.wordsToSearch}`)
+    callApiSeries(parameter) {
+      axios.get(this.apiUrl + 'search/tv?', parameter)
       .then(response => {
         this.seriesList = response.data.results;
       })
