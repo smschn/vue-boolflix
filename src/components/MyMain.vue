@@ -7,8 +7,7 @@
                 <p>Titolo: {{movie.title}}</p>
                 <p>Titolo originale: {{movie.original_title}}</p>
                 <p>Lingua originale: <img class="flag" v-bind:src="changeStringToFlag(movie.original_language)" v-bind:alt="movie.original_language" /></p>
-                <p>Media voto: {{movie.vote_average}}</p>
-                <p>Media voto: {{getIntegerVote(movie.vote_average)}}</p>
+                <p>Media voto: {{getIntegerVote(movie.vote_average)}} <span v-for="(singleVote, index) in getIntegerVote(movie.vote_average)" :key='index'><i class="fa-solid fa-star"></i></span></p>
             </div>
         </div>
         <h1>Serie TV:</h1>
@@ -18,8 +17,7 @@
                 <p>Titolo: {{serie.name}}</p>
                 <p>Titolo originale: {{serie.original_name}}</p>
                 <p>Lingua originale: <img class="flag" v-bind:src="changeStringToFlag(serie.original_language)" v-bind:alt="serie.original_language" /></p>
-                <p>Media voto: {{serie.vote_average}}</p>
-                <p>Media voto: {{getIntegerVote(serie.vote_average)}}</p>
+                <p>Media voto: {{getIntegerVote(serie.vote_average)}} <span v-for="(singleVote, index) in getIntegerVote(serie.vote_average)" :key='index'><i class="fa-solid fa-star"></i></span></p>
             </div>
         </div>
     </main>
@@ -57,6 +55,7 @@ export default {
 
 <style lang='scss'>
 @import '../styles/vars.scss';
+@import '~@fortawesome/fontawesome-free/css/all.css';
 
 main {
     min-height: calc(100vh - 80px);
