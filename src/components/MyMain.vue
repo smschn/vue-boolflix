@@ -1,11 +1,21 @@
 <template>
     <main>
+        <h1>Film:</h1>
         <div class="container">
-            <div class="card" v-for="(result, index) in searchResults" v-bind:key="index">
-                <p>Titolo: {{result.title}}</p>
-                <p>Titolo originale: {{result.original_title}}</p>
-                <p>Lingua originale: <img class="flag" v-bind:src="changeStringToFlag(result.original_language)" v-bind:alt="result.original_language" /></p>
-                <p>Media voto: {{result.vote_average}}</p>
+            <div class="card" v-for="(movie, index) in moviesSearchResults" v-bind:key="index">
+                <p>Titolo: {{movie.title}}</p>
+                <p>Titolo originale: {{movie.original_title}}</p>
+                <p>Lingua originale: <img class="flag" v-bind:src="changeStringToFlag(movie.original_language)" v-bind:alt="movie.original_language" /></p>
+                <p>Media voto: {{movie.vote_average}}</p>
+            </div>
+        </div>
+        <h1>Serie TV:</h1>
+        <div class="container">
+            <div class="card" v-for="(serie, index) in seriesSearchResults" v-bind:key="index">
+                <p>Titolo: {{serie.name}}</p>
+                <p>Titolo originale: {{serie.original_name}}</p>
+                <p>Lingua originale: <img class="flag" v-bind:src="changeStringToFlag(serie.original_language)" v-bind:alt="serie.original_language" /></p>
+                <p>Media voto: {{serie.vote_average}}</p>
             </div>
         </div>
     </main>
@@ -15,7 +25,8 @@
 export default {
     name: 'MyMain',
     props: {
-        searchResults: Array
+        moviesSearchResults: Array,
+        seriesSearchResults: Array
     },
     methods: {
         changeStringToFlag(languageString) {
@@ -35,7 +46,7 @@ export default {
 @import '../styles/vars.scss';
 
 main {
-    height: calc(100vh - 80px);
+    min-height: calc(100vh - 80px);
     background-color: $bg_m;
     padding: 30px;
 
@@ -48,7 +59,7 @@ main {
 
         .card {
             padding: 10px;
-            flex-basis: calc(100% / 6 - 4px);
+            flex-basis: calc(100% / 5 - 4px);
             margin-top: 4px;
             color: #fff;
             border: 1px solid $bg_c1;

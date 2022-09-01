@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <MyHeader @searchThis='getWordsToSearch' />
-    <MyMain :searchResults='moviesList' />
+    <MyMain :moviesSearchResults='moviesList' :seriesSearchResults='seriesList'/>
   </div>
 </template>
 
