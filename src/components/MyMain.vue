@@ -7,14 +7,14 @@
                     <img v-bind:src="posterUrl + movie.poster_path" v-bind:alt="movie.title">
                 </div>
                 <div class="flip-card-back">
-                    <h3 class="title">Titolo:</h3>
+                    <h3>Titolo:</h3>
                     <p>{{movie.title}}<p>
-                    <h3 class="title">Titolo originale:</h3>
+                    <h3>Titolo originale:</h3>
                     <p>{{movie.original_title}}</p>
-                    <h3 class="title">Lingua originale:</h3>
+                    <h3>Lingua originale:</h3>
                     <img class="flag" v-if="availableFlags.includes(movie.original_language)" v-bind:src="require('../assets/flags/' + movie.original_language + '.png')" v-bind:alt="movie.original_language">
                     <span v-else>{{movie.original_language}}</span>
-                    <h3 class="title">Voto:</h3>
+                    <h3>Voto:</h3>
                     <span v-for="(singleVote, index) in getIntegerVote(movie.vote_average)" :key='index'><i class="fa-solid fa-star"></i></span>
                 </div>
             </div>
@@ -26,14 +26,14 @@
                     <img v-bind:src="posterUrl + serie.poster_path" v-bind:alt="serie.name">
                 </div>
                 <div class="flip-card-back">
-                    <h3 class="title">Titolo:</h3>
+                    <h3>Titolo:</h3>
                     <p>{{serie.name}}<p>
-                    <h3 class="title">Titolo originale:</h3>
+                    <h3>Titolo originale:</h3>
                     <p>{{serie.original_name}}</p>
-                    <h3 class="title">Lingua originale:</h3>
+                    <h3>Lingua originale:</h3>
                     <img class="flag" v-if="availableFlags.includes(serie.original_language)" v-bind:src="require('../assets/flags/' + serie.original_language + '.png')" v-bind:alt="serie.original_language">
                     <span v-else>{{serie.original_language}}</span>
-                    <h3 class="title">Voto:</h3>
+                    <h3>Voto:</h3>
                     <span v-for="(singleVote, index) in getIntegerVote(serie.vote_average)" :key='index'><i class="fa-solid fa-star"></i></span>
                 </div>
             </div>
@@ -55,15 +55,6 @@ export default {
         }
     },
     methods: {
-        changeStringToFlag(languageString) {
-            let imgSrc = '';
-            if (languageString == 'de' || languageString == 'en' || languageString == 'es' || languageString == 'fr' || languageString == 'it') {
-                imgSrc = require(`../assets/flags/${languageString}.png`);
-            } else {
-                imgSrc = languageString;
-            }
-            return imgSrc;
-        },
         getIntegerVote(vote) {
             let newVote = Math.round(vote / 2);
             return newVote;
@@ -133,7 +124,7 @@ main {
                 width: 100%;
                 height: 100%;
 
-                .title {
+                h3 {
                     margin: 10px;
                 }
             }
