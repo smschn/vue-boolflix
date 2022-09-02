@@ -4,7 +4,7 @@
         <div class="container flip-card">
             <div class="card flip-card-inner" v-for="(movie, index) in moviesSearchResults" v-bind:key="index">
                 <div class="flip-card-front">
-                    <img v-bind:src="posterUrl + movie.poster_path" v-bind:alt="movie.title">
+                    <img class="poster" v-bind:src="posterUrl + movie.poster_path" v-bind:alt="movie.title">
                 </div>
                 <div class="flip-card-back">
                     <h5>Titolo: {{movie.title}}</h5>
@@ -14,7 +14,7 @@
                         <span v-else>{{movie.original_language}}</span>
                     </h5>
                     <h5>Voto: {{getIntegerVote(movie.vote_average)}}</h5>
-                    <span v-for="(singleVote, index) in 5" :key='index'>
+                    <span v-for="singleVote in 5" :key='singleVote'>
                         <i class="fa-star " v-bind:class=" (getIntegerVote(movie.vote_average)>=singleVote)?'fa-solid':'fa-regular' "></i>
                     </span>
                     <h5 class="plot">Trama: {{movie.overview}}</h5>
@@ -25,7 +25,7 @@
         <div class="container flip-card">
             <div class="card flip-card-inner" v-for="(serie, index) in seriesSearchResults" v-bind:key="index">
                 <div class="flip-card-front">
-                    <img v-bind:src="posterUrl + serie.poster_path" v-bind:alt="serie.name">
+                    <img class="poster" v-bind:src="posterUrl + serie.poster_path" v-bind:alt="serie.name">
                 </div>
                 <div class="flip-card-back">
                     <h5>Titolo: {{serie.name}}</h5>
@@ -35,7 +35,7 @@
                         <span v-else>{{serie.original_language}}</span>
                     </h5>
                     <h5>Voto: {{getIntegerVote(serie.vote_average)}}</h5>
-                    <span v-for="(singleVote, index) in 5" :key='index'>
+                    <span v-for="singleVote in 5" :key='singleVote'>
                         <i class="fa-star " v-bind:class=" (getIntegerVote(serie.vote_average)>=singleVote)?'fa-solid':'fa-regular' "></i>
                     </span>
                     <h5 class="plot">Trama: {{serie.overview}}</h5>
@@ -89,7 +89,7 @@ main {
 
         .card {
             flex-basis: calc(100% / 6);
-            height: 350px;
+            height: 300px;
             margin: 5px;
             color: #fff;
 
@@ -100,6 +100,8 @@ main {
 
         /* This container is needed to position the front and back side */
         .flip-card-inner {
+            max-width: 100%;
+            max-height: 300px;
             position: relative;
             text-align: center;
             transition: transform 0.8s;
@@ -114,28 +116,30 @@ main {
                 
             /* Style the front side (fallback if image is missing) */
             .flip-card-front {
-                color: black;
+                max-width: 100%;
+                max-height: 300px;
+                background-color: black;
 
-                img {
+                .poster {
                     max-width: 100%;
-                    max-height: 100%;
+                    max-height: 300px;
                 }
             }
 
             /* Style the back side */
             .flip-card-back {
-                transform: rotateY(180deg);
                 width: 100%;
-                height: 100%;
+                height: 300px;
+                transform: rotateY(180deg);
+                background-color: #000;
 
                 h5 {
                     margin: 10px;
                 }
 
                 .plot {
-                    overflow: hidden;
-                    white-space: nowrap; /* Don't forget this one */
-                    text-overflow: ellipsis;
+                    height: 120px;
+                    overflow-y: scroll;
                 }
             }
         }
@@ -154,7 +158,7 @@ main {
 
     /* Do an horizontal flip when you move the mouse over the flip box container */
     .flip-card-inner:hover {
-    transform: rotateY(180deg);
+        transform: rotateY(180deg);
     }
 }
 </style>
