@@ -4,7 +4,7 @@
                 <img class="poster" v-bind:src="posterUrl + data.poster_path" v-bind:alt="data.title?data.title:data.name">
             </div>
             <div class="flip-card-back">
-                <h5>Titolo: {{data.title?data.title:data.name}}</h5> <!-- attenzione alla differenza tra il campo titolo tra 'movie' e 'serie'-->
+                <h5>Titolo: {{data.title?data.title:data.name}}</h5> <!-- attenzione alla differenza nel campo titolo tra 'movie' e 'serie'-->
                 <h5>Titolo originale: {{data.original_title?data.original_title:data.original_name}}</h5> <!-- come sopra -->
                 <h5>Lingua originale:
                     <img class="flag" v-if="availableFlags.includes(data.original_language)" v-bind:src="require('../assets/flags/' + data.original_language + '.png')" v-bind:alt="data.original_language">
