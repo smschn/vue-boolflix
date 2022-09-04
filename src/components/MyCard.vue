@@ -1,7 +1,8 @@
 <template>
         <div class="card flip-card-inner">
             <div class="flip-card-front">
-                <img class="poster" v-bind:src="posterUrl + data.poster_path" v-bind:alt="data.title?data.title:data.name">
+                <img v-if="data.poster_path != null" class="poster" v-bind:src="posterUrl + data.poster_path" v-bind:alt="data.title?data.title:data.name">
+                <img v-else class="poster" v-bind:src="noImgUrl" alt="No image loaded.">
             </div>
             <div class="flip-card-back">
                 <h5>Titolo: {{data.title?data.title:data.name}}</h5> <!-- attenzione alla differenza nel campo titolo tra 'movie' e 'serie'-->
@@ -28,6 +29,7 @@ export default {
     data() {
         return {
             posterUrl: 'https://image.tmdb.org/t/p/w342',
+            noImgUrl: require('../assets/no_image.png'),
             availableFlags: ['de', 'en', 'es', 'fr', 'it']
         }
     },
